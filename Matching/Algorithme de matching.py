@@ -90,8 +90,13 @@ def match_passager():
         if distance_depart <= 5:
             matches.append({
                 "conducteur_id": conducteur.id,
+                "nom": conducteur.nom,
+                "photo": conducteur.profil,
                 "distance_detour": round(distance_depart, 2),
-                "distance_totale": round(distance_arrivee + distance_depart, 2)
+                "distance_totale": round(distance_arrivee + distance_depart, 2),
+                "itinéraire": f"{depart_passager}→{IFRI_COORD}",
+                "heure_depart": conducteur.heure_depart,
+                "places_disponibles": conducteur.places_disponibles
             })
     return jsonify(matches)
     matches.sort(key=lambda x: x["distance_detour"])
