@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
+
+input, button {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.suggestions {
+    list-style: none;
+    padding: 0;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    background-color: white;
+    position: absolute;
+    width: calc(100% - 40px);
+}
+
+.suggestions li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.suggestions li:hover {
+    background-color: #eee;
+}
