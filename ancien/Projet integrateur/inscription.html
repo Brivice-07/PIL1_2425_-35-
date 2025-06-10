@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incription</title>
+    <link rel="stylesheet" href="/inscription.css">
+</head>
+<body>
+    <h1></h1>
+    <div class="inscription">
+        <h2>Creer un nouveau compte</h2>
+        <form id="signup">
+
+            <input type="text" id="Nom" placeholder="Nom" required>
+            <br><br>
+            <input type="text" id="Prenom" placeholder="Prenom" required>
+            <br><br>
+            <input type="tel" id="tel" placeholder="Numero de telephone" required>
+            <br><br>
+            <input type="email" id="email" placeholder="Email" required>
+            <br><br>
+            <input type="password" id="password" placeholder="Mot de passe" required>
+            <br><br>
+            <label for="role">Role:</label> 
+            <label for="conducteur">Conducteur</label>
+            <input type="radio" id="conducteur" name="role" value="conducteur" required>
+
+            <label for="passager">Passager</label>
+            <input type="radio" id="passager" name="role" value="passager" required>
+            <br><br>
+            <button class="btn1" type="submit"><a  class="a1" href="#">S'inscrire</a></button>
+            <br><br>
+            <a href="/connexion1.html">Vous avez déjà un compte ?</a>
+       
+        </form>
+    </div>
+</body>
+</html>
