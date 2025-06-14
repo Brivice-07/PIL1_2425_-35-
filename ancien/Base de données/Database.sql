@@ -9,7 +9,7 @@ CREATE TABLE utilisateurs (
   prenoms VARCHAR(100),
   email VARCHAR(100) UNIQUE,
   telephone VARCHAR(20) UNIQUE,
-  mot_de_passe VARCHAR(255) NOT NULL UNIQUE,
+  mot_de_passe VARCHAR(255) NOT NULL,
   statut ENUM('conducteur', 'passager'),
   profil VARCHAR(255) DEFAULT NULL,
   point_de_depart VARCHAR(255),
