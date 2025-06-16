@@ -9,7 +9,6 @@
         </button>
         <h2>RideMates-Messagerie</h2>
       </div>
-      
       <div class="search-bar">
         <input 
           type="text" 
