@@ -3,6 +3,10 @@
     <!-- Colonne des conversations -->
     <div class="conversations-sidebar">
       <div class="sidebar-header">
+        <!-- Bouton de retour ajouté ici -->
+        <button @click="goBack" class="back-button">
+          <i class="fas fa-arrow-left"></i>
+        </button>
         <h2>RideMates-Messagerie</h2>
       </div>
       
@@ -140,6 +144,16 @@ export default {
     }
   },
   methods: {
+          // Méthode pour naviguer vers la page précédente (ou la page d'accueil si aucune historique)
+      goBack() {
+        // Si l'historique du navigateur le permet, revenir en arrière
+        if (window.history.length > 1) {
+          this.$router.go(-1);
+        } else {
+          // Sinon, naviguer explicitement vers la page d'accueil
+          this.$router.push('/'); // Assurez-vous que '/' est la route de votre page Accueil.vue
+        }
+      },
     // Charge une conversation spécifique
     loadConversation(userId) {
       // Sauvegarder le brouillon de la conversation précédente AVANT de changer d'utilisateur
@@ -224,6 +238,29 @@ export default {
     color: white;
     text-align: center;
     font-weight: bold;
+}
+
+/* Styles pour le bouton de retour */
+.back-button {
+    position: absolute; /* Positionne le bouton par rapport au header */
+    left: 15px; /* Aligné à gauche */
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease-in-out;
+    display: flex; /* Pour centrer l'icône */
+    align-items: center;
+    justify-content: center;
+}
+
+.back-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .search-bar {
