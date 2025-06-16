@@ -104,7 +104,7 @@
           <ul>
             <li><router-link to="/accueil"><i class="fas fa-chevron-right"></i> Accueil</router-link></li>
             <li><router-link to="/trajets"><i class="fas fa-chevron-right"></i> Trajets</router-link></li>
-            <li><router-link to="/messages"><i class="fas fa-chevron-right"></i> Messages</router-link></li>
+            <li><router-link to="/messagerie"><i class="fas fa-chevron-right"></i> Messages</router-link></li>
             <li><router-link to="/profil"><i class="fas fa-chevron-right"></i> Profil</router-link></li>
           </ul>
         </div>

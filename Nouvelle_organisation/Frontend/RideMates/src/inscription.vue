@@ -1,6 +1,6 @@
 <template>
   <div class="auth-page">
-    <h1>MotoShare</h1>
+    <h1>RideMates</h1>
     <div class="register-container">
       <div class="register-box">
         <h2>Créer un compte</h2>
