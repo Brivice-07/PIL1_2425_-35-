@@ -91,7 +91,3 @@ CREATE TABLE reinitialisation_mdp (
 -- Index
 CREATE INDEX idx_utilisateur_contact ON utilisateurs(email, telephone);
 CREATE INDEX idx_matching_situation ON matching(situation, match_date);
-
--- Index
-CREATE INDEX idx_utilisateur_contact ON utilisateurs(email, telephone);
-CREATE INDEX idx_matching_situation ON matching(situation, match_date);
