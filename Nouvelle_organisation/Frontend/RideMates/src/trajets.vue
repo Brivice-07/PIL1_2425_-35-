@@ -2,9 +2,15 @@
   <div class="trajets-container">
     <!-- En-tête (spécifique à cette page si non globalisé) -->
     <header class="header">
-      <div class="logo">
-        <i class="fas fa-motorcycle"></i>
-        <span>RideMates-Trajets</span>
+      <div class="header-content">
+        <!-- Bouton de retour ajouté ici -->
+        <button @click="goBack" class="back-button">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <div class="logo">
+          <i class="fas fa-motorcycle"></i>
+          <span>RideMates</span>
+        </div>
       </div>
       <!-- Note: Si vous souhaitez une navbar globale comme celle d'Accueil,
            vous devriez créer un composant NavBar.vue et l'inclure ici ou dans App.vue. -->
@@ -310,6 +316,16 @@ export default {
     };
   },
   methods: {
+     // Méthode pour naviguer vers la page précédente (ou la page d'accueil si aucune historique)
+    goBack() {
+        // Si l'historique du navigateur le permet, revenir en arrière
+        if (window.history.length > 1) {
+          this.$router.go(-1);
+        } else {
+          // Sinon, naviguer explicitement vers la page d'accueil
+          this.$router.push('/'); // Assurez-vous que '/' est la route de votre page Accueil.vue
+        }
+    },
     // Méthode pour changer l'onglet actif (Passager/Conducteur)
     selectTab(tab) {
       this.currentTab = tab;
@@ -393,6 +409,13 @@ export default {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centrer le contenu du header */
+  width: 100%;
+}
+
 .logo {
     font-size: 24px;
     font-weight: bold;
@@ -403,6 +426,29 @@ export default {
 .logo i {
     margin-right: 10px;
     color: white; /* Couleur orange directe pour l'icône de moto spécifique à cette page */
+}
+
+  /* Styles pour le bouton de retour */
+.back-button {
+  position: absolute; /* Positionne le bouton par rapport au header */
+  left: 20px; /* Aligné à gauche */
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease-in-out;
+  display: flex; /* Pour centrer l'icône */
+  align-items: center;
+  justify-content: center;
+}
+
+.back-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Contenu principal */
