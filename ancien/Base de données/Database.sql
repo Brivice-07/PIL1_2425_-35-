@@ -2,122 +2,95 @@
 CREATE DATABASE Ifri_comotorage;
 USE Ifri_comotorage;
 
--- Table des utilisateurs
+--Table users (Utilisateurs)
 CREATE TABLE utilisateurs (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  nom VARCHAR(100),
-  prenoms VARCHAR(100),
-  email VARCHAR(100) UNIQUE,
-  telephone VARCHAR(20) UNIQUE,
-  mot_de_passe VARCHAR(255) NOT NULL,
-  statut ENUM('conducteur', 'passager'),
-  profil VARCHAR(255) DEFAULT NULL,
-  point_de_depart VARCHAR(255),
-  horaires VARCHAR(255)
+    id_utilisateur INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    telephone VARCHAR(20) UNIQUE NOT NULL,
+    mot_de_passe_hash VARCHAR(255) NOT NULL,
+    nom VARCHAR(50) NOT NULL,
+    prenom VARCHAR(50) NOT NULL,
+    photo_profil VARCHAR(255),
+    role ENUM('conducteur', 'passager') NOT NULL,
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table des véhicules
-CREATE TABLE vehicules (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  id_utilisateur INT NOT NULL,
-  marque VARCHAR(100),
-  modele VARCHAR(100),
-  places INT CHECK (places > 0),
-  FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id)
+--Table user_profiles (Profils d’utilisateurs)
+CREATE TABLE profils_utilisateurs (
+    id_profil INT PRIMARY KEY AUTO_INCREMENT,
+    id_utilisateur INT UNIQUE NOT NULL,
+    adresse_depart TEXT NOT NULL,
+    latitude_depart DECIMAL(10, 8) NOT NULL,
+    longitude_depart DECIMAL(11, 8) NOT NULL,
+    adresse_arrivee TEXT NOT NULL,
+    latitude_arrivee DECIMAL(10, 8) NOT NULL,
+    longitude_arrivee DECIMAL(11, 8) NOT NULL,
+    heure_depart_habituelle TIME NOT NULL,
+    heure_arrivee_habituelle TIME NOT NULL,
+    modele_vehicule VARCHAR(100),
+    nombre_places INT,
+    FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur) ON DELETE CASCADE
 );
 
--- Table des trajets
+--Table rides (Trajets et demandes)
 CREATE TABLE trajets (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  id_utilisateur INT, 
-  id_vehicule INT,
-  point_de_depart VARCHAR(255),
-  point_arrivee VARCHAR(255),
-  heure_depart TIME,
-  places_disponibles INT CHECK (places_disponibles > 0),
-  date_trajet DATE,
-  niveau ENUM('actif', 'terminé', 'annulé') DEFAULT 'actif',
-  latitude DECIMAL(9,6),
-  longitude DECIMAL(9,6),
-  FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id),
-  FOREIGN KEY (id_vehicule) REFERENCES vehicules(id)
+    id_trajet INT PRIMARY KEY AUTO_INCREMENT,
+    id_utilisateur INT NOT NULL,
+    est_offre BOOLEAN NOT NULL, -- TRUE pour offre de covoiturage, FALSE pour demande
+    adresse_depart TEXT NOT NULL,
+    latitude_depart DECIMAL(10, 8) NOT NULL,
+    longitude_depart DECIMAL(11, 8) NOT NULL,
+    adresse_arrivee TEXT NOT NULL,
+    latitude_arrivee DECIMAL(10, 8) NOT NULL,
+    longitude_arrivee DECIMAL(11, 8) NOT NULL,
+    heure_depart DATETIME NOT NULL,
+    nombre_places_disponibles INT,
+    statut ENUM('actif', 'terminé', 'annulé') DEFAULT 'actif',
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur)
 );
 
--- Table des demandes de covoiturage par passagers
-CREATE TABLE demandes (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  id_utilisateur INT NOT NULL,
-  point_de_depart VARCHAR(255),
-  point_arrivee VARCHAR(255),
-  heure_depart TIME,
-  date_trajet DATE,
-  FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id)
+--Table matches (Correspondances de covoiturage)
+CREATE TABLE correspondances (
+    id_correspondance INT PRIMARY KEY AUTO_INCREMENT,
+    id_offre_trajet INT NOT NULL,
+    id_demande_trajet INT NOT NULL,
+    id_conducteur INT NOT NULL,
+    id_passager INT NOT NULL,
+    score_compatibilite DECIMAL(5, 2) NOT NULL, -- Score entre 0 et 100
+    statut ENUM('en attente', 'accepté', 'refusé', 'terminé') DEFAULT 'en attente',
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_offre_trajet) REFERENCES trajets(id_trajet),
+    FOREIGN KEY (id_demande_trajet) REFERENCES trajets(id_trajet),
+    FOREIGN KEY (id_conducteur) REFERENCES utilisateurs(id_utilisateur),
+    FOREIGN KEY (id_passager) REFERENCES utilisateurs(id_utilisateur)
 );
 
--- Table de la messagerie
+--Table messages (Messagerie intégrée)
 CREATE TABLE messages (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  sender_id INT,
-  receiver_id INT,
-  contenu TEXT,
-  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (sender_id) REFERENCES utilisateurs(id),
-  FOREIGN KEY (receiver_id) REFERENCES utilisateurs(id)
+    id_message INT PRIMARY KEY AUTO_INCREMENT,
+    id_correspondance INT NOT NULL,
+    id_expediteur INT NOT NULL,
+    contenu TEXT NOT NULL,
+    date_envoi TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    est_lu BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (id_correspondance) REFERENCES correspondances(id_correspondance),
+    FOREIGN KEY (id_expediteur) REFERENCES utilisateurs(id_utilisateur)
 );
 
--- Table des notifications
-CREATE TABLE notifications (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  id_utilisateur INT,
-  message TEXT,
-  etat ENUM ('envoyé', 'lu') DEFAULT 'envoyé',
-  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id)
+--Table reinitialisations_mot_de_passe (Sécurité & récupération)
+CREATE TABLE reinitialisation_mdp (
+    id_reinitialisation INT PRIMARY KEY AUTO_INCREMENT,
+    id_utilisateur INT NOT NULL,
+    jeton VARCHAR(255) UNIQUE NOT NULL,
+    expiration DATETIME NOT NULL,
+    FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur)
 );
 
--- Table des avis
-CREATE TABLE avis (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  id_auteur INT NOT NULL,
-  id_destinataire INT NOT NULL,
-  note INT NOT NULL CHECK(note BETWEEN 1 AND 5),
-  commentaire TEXT,
-  timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (id_auteur) REFERENCES utilisateurs(id),
-  FOREIGN KEY (id_destinataire) REFERENCES utilisateurs(id)
-);
 
--- Table des conducteurs
-CREATE TABLE conducteurs(
-id INT PRIMARY KEY AUTO_INCREMENT,
-latitude DECIMAL(9,6) NOT NULL,
-longitude DECIMAL (9,6) NOT NULL,
-places_disponibles INT NOT NULL CHECK(places_disponibles > 0),
-distance_max_detour FLOAT DEFAULT 5.0
-);
-
--- Table des matching conducteur-passager
-CREATE TABLE matching (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  id_trajet INT NOT NULL,
-  id_conducteur INT NOT NULL,
-  id_passager INT NOT NULL,
-  situation ENUM('en attente', 'accepté', 'refusé', 'terminé') DEFAULT 'en attente',
-  match_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-  date_fin_match DATETIME,
-  FOREIGN KEY (id_trajet) REFERENCES trajets(id),
-  FOREIGN KEY (id_conducteur) REFERENCES utilisateurs(id),
-  FOREIGN KEY (id_passager) REFERENCES utilisateurs(id)
-);
-
--- Table de réinitialisation de mot de passe
-CREATE TABLE reinitialisations_mot_de_passe (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  id_utilisateur INT NOT NULL,
-  token VARCHAR(255) UNIQUE NOT NULL,
-  expiration DATETIME NOT NULL,
-  FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id)
-);
+-- Index
+CREATE INDEX idx_utilisateur_contact ON utilisateurs(email, telephone);
+CREATE INDEX idx_matching_situation ON matching(situation, match_date);
 
 -- Index
 CREATE INDEX idx_utilisateur_contact ON utilisateurs(email, telephone);
