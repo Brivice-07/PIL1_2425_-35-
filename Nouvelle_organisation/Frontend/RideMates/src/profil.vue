@@ -1,278 +1,387 @@
 <template>
-  <h2 class="titre"> Mon Profil</h2>
-  <div class="utile">
-    <section class="profil-container">
-      <!-- Formulaire -->
-      <form @submit.prevent="handleSubmit" class="formulaire">
-        <!-- Nom -->
-        <div class="ligne">
-          <label for="lastName">Nom</label>
-          <input id="lastName" v-model="profile.lastName" type="text" required />
-        </div>
-        <!-- Prénom -->
-        <div class="ligne">
-          <label for="firstName">Prénom</label>
-          <input id="firstName" v-model="profile.firstName" type="text" required />
-        </div>
+  <div class="profil-page-wrapper">
+    <!-- En-tête de la page profil -->
+    <header class="profil-header">
+      <button @click="goBack" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <h2 class="titre">
+        <i class="fas fa-user-circle profile-icon"></i> Mon Profil
+      </h2>
+    </header>
 
-        <!-- Email -->
-        <div class="ligne">
-          <label for="email">Email</label>
-          <input id="email" v-model="profile.email" type="email" required />
-        </div>
+    <div class="main-content-wrapper">
+      <section class="profil-container">
+        <!-- Formulaire de profil -->
+        <form @submit.prevent="handleSubmit" class="formulaire">
+          <div class="grid">
+            <!-- Nom -->
+            <div class="ligne">
+              <label for="lastName">Nom</label>
+              <input id="lastName" v-model="profile.lastName" type="text" required />
+            </div>
+            <!-- Prénom -->
+            <div class="ligne">
+              <label for="firstName">Prénom</label>
+              <input id="firstName" v-model="profile.firstName" type="text" required />
+            </div>
+          </div>
 
-        <!-- Téléphone -->
-        <div class="ligne">
-          <label for="phone">Téléphone</label>
-          <input id="phone" v-model="profile.phone" type="tel" required />
-        </div>
-
-        <!-- Rôle -->
-        <div class="ligne">
-          <label for="role">Rôle</label>
-          <select id="role" v-model="profile.role">
-            <option value="conducteur">Conducteur</option>
-            <option value="passager">Passager</option>
-          </select>
-        </div>
-
-        <!-- Informations véhicule (si conducteur) -->
-        <div v-if="profile.role === 'conducteur'" class="vehicule">
-          <h3>Informations du véhicule</h3>
-          
+          <!-- Email -->
           <div class="ligne">
-            <label for="vehicle-type-select">Type de véhicule</label>
-            <select id="vehicle-type-select" v-model="profile.vehicle.type">
-              <option value="moto">Moto</option>
-              <option value="car">Voiture</option>
+            <label for="email">Email</label>
+            <input id="email" v-model="profile.email" type="email" required />
+          </div>
+
+          <!-- Téléphone -->
+          <div class="ligne">
+            <label for="phone">Téléphone</label>
+            <input id="phone" v-model="profile.phone" type="tel" required />
+          </div>
+
+          <!-- Rôle -->
+          <div class="ligne">
+            <label for="role">Rôle</label>
+            <select id="role" v-model="profile.role" class="select-styled">
+              <option value="conducteur">Conducteur</option>
+              <option value="passager">Passager</option>
             </select>
           </div>
 
-          <div class="grid">
+          <!-- Informations véhicule (si conducteur) -->
+          <div v-if="profile.role === 'conducteur'" class="vehicule">
+            <h3>Informations du véhicule</h3>
+
             <div class="ligne">
-              <label for="vehicle-make">Marque</label>
-              <select id="vehicle-make" v-model="profile.vehicle.make">
-                <option value="">Sélectionnez une marque</option>
-                <template v-if="profile.vehicle.type === 'moto'">
-                  <option v-for="brand in motoBrands" :key="brand" :value="brand">{{ brand }}</option>
-                </template>
-                <template v-else-if="profile.vehicle.type === 'car'">
-                  <option v-for="brand in carBrands" :key="brand" :value="brand">{{ brand }}</option>
-                </template>
+              <label for="vehicle-type-select">Type de véhicule</label>
+              <select id="vehicle-type-select" v-model="profile.vehicle.type" class="select-styled">
+                <option value="moto">Moto</option>
+                <option value="car">Voiture</option>
               </select>
             </div>
+
+            <div class="grid">
+              <div class="ligne">
+                <label for="vehicle-make">Marque</label>
+                <select id="vehicle-make" v-model="profile.vehicle.make" class="select-styled">
+                  <option value="">Sélectionnez une marque</option>
+                  <template v-if="profile.vehicle.type === 'moto'">
+                    <option v-for="brand in motoBrands" :key="brand" :value="brand">{{ brand }}</option>
+                  </template>
+                  <template v-else-if="profile.vehicle.type === 'car'">
+                    <option v-for="brand in carBrands" :key="brand" :value="brand">{{ brand }}</option>
+                  </template>
+                </select>
+              </div>
+              <div class="ligne">
+                <label for="vehicle-model">Modèle</label>
+                <input id="vehicle-model" v-model="profile.vehicle.model" type="text" placeholder="Saisissez le modèle" />
+              </div>
+            </div>
             <div class="ligne">
-              <label for="vehicle-model">Modèle</label>
-              <input id="vehicle-model" v-model="profile.vehicle.model" type="text" placeholder="Saisissez le modèle" />
+              <label for="vehicle-seats">Nombre de places disponibles</label>
+              <input id="vehicle-seats" v-model.number="profile.vehicle.seats" type="number" min="1" max="10" />
             </div>
           </div>
-          <div class="ligne">
-            <label for="vehicle-seats">Nombre de places disponibles</label>
-            <input id="vehicle-seats" v-model.number="profile.vehicle.seats" type="number" min="1" max="10" />
-          </div>
-        </div>
 
-        <!-- Bouton d'enregistrement-->
-        <button type="submit" class="bouton">Enregistrer les modifications</button>
-      </form>
-    </section>
+          <!-- Bouton d'enregistrement-->
+          <button type="submit" class="bouton">
+            <i class="fas fa-save bouton-icon"></i> Enregistrer les modifications
+          </button>
+        </form>
+      </section>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+  import { ref, watch } from 'vue'
+  import { useRouter } from 'vue-router'; // Importation de useRouter
 
-const profile = ref({
-  firstName: '', // Prénom séparé
-  lastName: '',  // Nom séparé
-  email: '',
-  phone: '',
-  role: 'passager', // Rôle par défaut, pour commencer
-  vehicle: {
-    type: 'moto', // Type de véhicule par défaut
-    make: '',    // Marque sélectionnée
-    model: '',   // Modèle saisi manuellement
-    seats: 1     // Nombre de places par défaut
+  const router = useRouter(); // Initialisation de useRouter
+
+  const profile = ref({
+    firstName: '', // Prénom séparé
+    lastName: '',  // Nom séparé
+    email: '',
+    phone: '',
+    role: 'passager', // Rôle par défaut, pour commencer
+    vehicle: {
+      type: 'moto', // Type de véhicule par défaut
+      make: '',    // Marque sélectionnée
+      model: '',   // Modèle saisi manuellement
+      seats: 1     // Nombre de places par défaut
+    }
+  })
+
+  // Listes des marques (les modèles seront saisis manuellement)
+  const motoBrands = [
+    'Honda', 'Yamaha', 'Kawasaki', 'Suzuki', 'BMW', 'Ducati', 'Triumph', 'Harley-Davidson', 'KTM', 'Aprilia', 'Autre'
+  ];
+  const carBrands = [
+    'Peugeot', 'Renault', 'Citroën', 'Volkswagen', 'BMW', 'Mercedes', 'Audi', 'Toyota', 'Ford', 'Tesla', 'Autre'
+  ];
+
+  // Surveille les changements de type de véhicule et de marque pour réinitialiser la marque et le modèle
+  watch(() => profile.value.vehicle.type, () => {
+    profile.value.vehicle.make = '';  // Réinitialise la marque quand le type change
+    profile.value.vehicle.model = ''; // Réinitialise le modèle quand le type change
+  });
+
+  watch(() => profile.value.vehicle.make, () => {
+    profile.value.vehicle.model = ''; // Réinitialise le modèle quand la marque change
+  });
+
+  // Méthode pour naviguer vers la page précédente (ou la page d'accueil si aucune historique)
+  function goBack() {
+    if (window.history.length > 1) {
+      router.go(-1);
+    } else {
+      router.push('/'); // Assurez-vous que '/' est la route de votre page Accueil.vue
+    }
   }
-})
 
-// Listes des marques (les modèles seront saisis manuellement)
-const motoBrands = [
-  'Honda', 'Yamaha', 'Kawasaki', 'Suzuki', 'BMW', 'Ducati', 'Triumph', 'Harley-Davidson', 'KTM', 'Aprilia', 'Autre'
-];
-const carBrands = [
-  'Peugeot', 'Renault', 'Citroën', 'Volkswagen', 'BMW', 'Mercedes', 'Audi', 'Toyota', 'Ford', 'Tesla', 'Autre'
-];
-
-// Supprimez la propriété calculée 'availableModels' car le modèle est maintenant un input text.
-// Supprimez les objets 'motoModelsByBrand' et 'carModelsByBrand' car les modèles sont saisis manuellement.
-
-// Surveille les changements de type de véhicule et de marque pour réinitialiser la marque et le modèle
-watch(() => profile.value.vehicle.type, () => {
-  profile.value.vehicle.make = '';  // Réinitialise la marque quand le type change
-  profile.value.vehicle.model = ''; // Réinitialise le modèle quand le type change
-});
-
-watch(() => profile.value.vehicle.make, () => {
-  profile.value.vehicle.model = ''; // Réinitialise le modèle quand la marque change
-});
-
-function handleSubmit() {
-  console.log('Profil mis à jour:', profile.value)
-  // Ici, vous ajouteriez la logique pour sauvegarder les données, par exemple vers une API
-  alert('Profil mis à jour avec succès ! (Voir console)');
-}
+  function handleSubmit() {
+    console.log('Profil mis à jour:', profile.value)
+    // Ici, vous ajouteriez la logique pour sauvegarder les données, par exemple vers une API
+    alert('Profil mis à jour avec succès ! (Voir console)');
+  }
 </script>
 
 <style scoped>
-/* Les variables globales sont maintenant définies dans App.vue.
-   Nous utilisons ici les variables globales ou des valeurs directes. */
+  /* Les variables globales sont maintenant définies dans App.vue.
+    Nous utilisons ici les variables globales ou des valeurs directes. */
 
-.profil-container {
-  max-width: 800px;
-  margin: auto;
-  padding: 2rem;
-}
+  /* Conteneur principal de la page pour une meilleure mise en page */
+  .profil-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f5f5f5; /* Un fond clair pour toute la page */
+  }
 
-.titre {
-  font-size: 3rem;
-  font-weight: 900; /* Le poids de la police est souvent 100-900, pas 90px */
-  text-align: center;
-  margin-bottom: 1.5rem;
-  /* margin-right: 20px;  Souvent pas nécessaire pour un titre centré dans un conteneur */
-}
+  /* En-tête de la page profil */
+  .profil-header {
+    background-color: var(--primary); /* Couleur principale de l'application */
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centre le titre */
+    position: relative; /* Pour positionner le bouton de retour */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
 
-.formulaire {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem; /* Augmenté à 1.5rem pour plus d'espace entre les lignes */
-}
+  .titre {
+    font-size: 2.5rem; /* Taille de police légèrement réduite pour l'en-tête */
+    font-weight: bold;
+    text-align: center;
+    margin: 0; /* Supprime la marge par défaut */
+    flex-grow: 1; /* Permet au titre de prendre l'espace restant pour le centrer */
+    display: flex; /* Permet l'alignement de l'icône et du texte */
+    align-items: center; /* Aligne verticalement */
+    justify-content: center; /* Centre le contenu (icône + texte) */
+  }
 
-.ligne {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem; /* Garde l'espace entre le label et l'input */
-}
+  .profile-icon {
+    margin-right: 10px; /* Espace entre l'icône et le texte */
+    font-size: 1.1em; /* Ajuste la taille de l'icône par rapport au texte */
+  }
 
-.ligne label {
-  font-weight: bold;
-  color: white;
-}
+  /* Styles pour le bouton de retour (similaire aux autres pages) */
+  .back-button {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.ligne input,
-.ligne select {
-  padding: 0.75rem; /* Légèrement augmenté pour plus de confort */
-  border: 1px solid var(--dark); /* Utilise la variable globale */
-  border-radius: 0.375rem;
-  font-size: 1rem;
-  background-color: white; /* Fond blanc pour les inputs et selects */
-  color: var(--dark); /* Couleur du texte dans les inputs (foncée pour contraster avec le blanc) */
-}
+  .back-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 
-.ligne input:focus,
-.ligne select:focus {
-  border-color: var(--primary); /* Utilise la variable globale */
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(10, 58, 49, 0.2); /* Ombre légère au focus */
-}
+  .main-content-wrapper {
+    flex: 1; /* Permet au contenu de prendre l'espace disponible */
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: flex-start; /* Aligne en haut */
+    padding: 20px;
+  }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem; /* Espace entre les colonnes de la grille */
-}
-
-.vehicule {
-  background-color: white; /* Changé de #1a6f1a à white */
-  padding: 1.5rem; /* Plus de padding */
-  border-radius: 0.5rem;
-  margin-top: 1.5rem; /* Plus de marge au-dessus */
-  color: var(--dark); /* Pour que le texte à l'intérieur soit lisible sur fond blanc */
-  border: 1px solid #eee; /* Ajout d'une bordure pour délimiter le cadre blanc */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Ajout d'une ombre pour la profondeur */
-}
-
-.vehicule h3 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-size: 1.25rem;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1); /* Bordure plus foncée pour le blanc */
-  padding-bottom: 0.5rem;
-}
-
-/* Les styles spécifiques aux radio buttons ne sont plus nécessaires */
-/*
-.vehicle-type-selection .radio-group {
-  display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
-}
-
-.vehicle-type-selection label {
-  font-weight: normal; 
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-}
-*/
-
-.bouton {
-  background-color: var(--primary); /* Utilise la variable globale pour le bouton */
-  color: white; /* Utilise white pour le texte */
-  padding: 15px 25px; /* Ajusté padding */
-  border: none; /* Pas de bordure par défaut */
-  border-radius: 0.375rem;
-  cursor: pointer;
-  align-self: center; /* Centré horizontalement */
-  transition: background-color 0.2s ease, transform 0.2s ease; /* Ajout d'une transition pour le transform */
-  margin-top: 1.5rem; /* Plus d'espace au-dessus du bouton */
-  font-size: 1.1rem;
-  font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Légère ombre */
-}
-
-.bouton:hover {
-  background-color: #082d26; /* Un vert plus foncé au survol, cohérent avec --primary */
-  transform: translateY(-2px); /* Petit effet de soulèvement au survol */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Ombre plus prononcée au survol */
-}
-
-.utile{
-  border-radius: 20px;
-  width: clamp(300px, 90%, 600px); /* Plus flexible pour les différentes tailles d'écran */
-  background-color: var(--primary); /* Utilise la variable globale */
-  margin: 20px auto; /* Centré horizontalement et espace vertical */
-  padding: 20px; /* Padding interne pour ne pas coller les bords */
-}
-
-/* Responsive pour les petits écrans */
-@media (max-width: 768px) {
   .profil-container {
-    padding: 1rem; /* Moins de padding sur les petits écrans */
+    max-width: 700px; /* Largeur maximale pour le formulaire */
+    width: 100%; /* Prend toute la largeur disponible jusqu'à max-width */
+    background-color: var(--primary); /* Utilise la variable globale pour le fond */
+    border-radius: 15px; /* Coins arrondis pour un aspect doux */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1); /* Ombre plus prononcée pour la profondeur */
+    padding: 2.5rem; /* Plus de padding interne */
+    color: white; /* Couleur du texte par défaut à l'intérieur */
+    margin: 20px auto; /* Centré horizontalement et espace vertical */
   }
-  .titre {
-    font-size: 2.2rem;
-  }
-  .grid {
-    grid-template-columns: 1fr; /* Une seule colonne sur mobile */
-  }
-  .bouton {
-    width: 100%; /* Bouton prend toute la largeur sur mobile */
-    align-self: stretch; /* S'étire */
-    margin-left: 0; /* Pas de marge gauche fixe sur mobile */
-  }
-  .vehicule {
-    padding: 1rem;
-  }
-}
 
-@media (max-width: 480px) {
-  .titre {
-    font-size: 1.8rem;
+  .formulaire {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
-  .formulaire, .grid {
-    gap: 1rem; /* Réduire un peu le gap sur les très petits écrans */
+
+  .ligne {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem; /* Ajusté légèrement l'espace */
   }
-}
+
+  .ligne label {
+    font-weight: 600; /* Un peu plus de poids */
+    color: rgba(255, 255, 255, 0.9); /* Un blanc légèrement transparent pour le label */
+    font-size: 1.05rem; /* Légèrement plus grand */
+  }
+
+  input,
+  .select-styled { /* Applique les styles aux selects */
+    padding: 0.85rem; /* Augmenté pour un meilleur toucher */
+    border: 1px solid white; /* Bordure blanche OPAQUE pour une meilleure visibilité */
+    border-radius: 0.5rem; /* Plus arrondis */
+    font-size: 1rem;
+    background-color: white; /* Fond blanc OPAQUE */
+    color: var(--primary); /* Texte en couleur primaire pour le contraste */
+    transition: all 0.3s ease; /* Transition douce pour les changements de style */
+  }
+
+  input:focus,
+  .select-styled:focus {
+    border: 2px solid white; /* Bordure plus épaisse et OPAQUE au focus */
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.4); /* Ombre plus visible au focus */
+    background-color: white; /* Fond blanc OPAQUE au focus */
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Min-width légèrement augmenté */
+    gap: 1.5rem;
+  }
+
+  .vehicule {
+    background-color: rgba(255, 255, 255, 0.08); /* Fond très légèrement transparent */
+    padding: 1.8rem; /* Plus de padding */
+    border-radius: 0.8rem; /* Plus arrondis */
+    margin-top: 2rem; /* Plus de marge au-dessus */
+    color: white; /* Texte blanc à l'intérieur */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Bordure très subtile */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15); /* Ombre douce */
+  }
+
+  .vehicule h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.4rem; /* Taille de police légèrement plus grande */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Ligne de séparation blanche transparente */
+    padding-bottom: 0.8rem; /* Plus de padding sous la ligne */
+    color: rgba(255, 255, 255, 0.95); /* Couleur plus marquée pour le titre */
+  }
+
+  .bouton {
+    background-color: white; /* Bouton principal blanc */
+    color: var(--primary); /* Texte du bouton en couleur primaire */
+    padding: 18px 30px; /* Padding généreux */
+    border: none;
+    border-radius: 0.75rem; /* Très arrondis */
+    cursor: pointer;
+    align-self: center;
+    transition: all 0.3s ease; /* Transition pour tous les changements de style */
+    margin-top: 2rem; /* Plus d'espace au-dessus du bouton */
+    font-size: 1.15rem; /* Taille de police légèrement plus grande */
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Ombre prononcée */
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espace entre l'icône et le texte */
+  }
+
+  .bouton-icon {
+    font-size: 1.3em; /* Taille de l'icône */
+  }
+
+  .bouton:hover {
+    background-color: var(--secondary); /* Nouvelle couleur au survol, par exemple un vert plus clair */
+    color: white; /* Texte blanc au survol */
+    transform: translateY(-3px); /* Effet de soulèvement plus prononcé */
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3); /* Ombre plus prononcée au survol */
+  }
+
+
+  /* Responsive pour les petits écrans */
+  @media (max-width: 768px) {
+    .profil-header .titre {
+      font-size: 2rem;
+    }
+    .back-button {
+      left: 15px;
+      font-size: 20px;
+    }
+    .main-content-wrapper {
+      padding: 15px;
+    }
+    .profil-container {
+      padding: 2rem; /* Un peu moins de padding sur les écrans plus petits */
+      border-radius: 10px; /* Coins un peu moins arrondis sur mobile */
+    }
+    .grid {
+      grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+      gap: 1rem;
+    }
+    .formulaire {
+      gap: 1rem;
+    }
+    .bouton {
+      width: 100%; /* Bouton prend toute la largeur sur mobile */
+      align-self: stretch; /* S'étire */
+      padding: 15px 20px;
+      font-size: 1rem;
+      margin-top: 1.5rem;
+    }
+    .vehicule {
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .vehicule h3 {
+      font-size: 1.2rem;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .profil-header .titre {
+      font-size: 1.8rem;
+    }
+    .profil-container {
+      padding: 1.5rem;
+    }
+    .ligne label {
+      font-size: 0.95rem;
+    }
+    input, .select-styled {
+      padding: 0.75rem;
+      font-size: 0.9rem;
+    }
+    .vehicule {
+      padding: 1rem;
+    }
+    .bouton {
+      padding: 12px 18px;
+      font-size: 0.95rem;
+    }
+  }
 </style>
