@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, current_app
-from app import db
-from models.models import RideRequest, Conducteur
+from app.extensions import db
+from ..models.models import RideRequest, Conducteur
 from services.ors import get_distance_km_duree_min
 
 ride_bp = Blueprint('ride', __name__)

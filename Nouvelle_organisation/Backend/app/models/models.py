@@ -1,4 +1,4 @@
-from . import db
+from ..extensions import db
 
 class RideRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)

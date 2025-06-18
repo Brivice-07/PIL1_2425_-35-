@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from werkzeug.security import check_password_hash
-from models.user_model import Utilisateur
+from ..models.user_model import Utilisateur
 from flask_jwt_extended import create_access_token
 from datetime import timedelta
 
