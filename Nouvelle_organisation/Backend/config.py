@@ -1,5 +1,5 @@
 class Config:
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://dev:1234@localhost/ifri_comotorage"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://Brivice:Brivice@127.0.0.1:3306/ifri_comotorage"
 
     JWT_SECRET_KEY = 'votre_clé_secrète_super_sécurisée'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
