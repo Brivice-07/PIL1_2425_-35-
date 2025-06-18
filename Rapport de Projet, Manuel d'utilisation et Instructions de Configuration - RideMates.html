@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport de Projet, Manuel d'utilisation et Instructions de Configuration - PIL1_2425_35</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0V4LLanw2qksYuRlEzO+tcaEPQogQ0KaoIZ2k/f+L7M3zV/wW0+7vJ/r82Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Custom styles for the icons to adjust size and margin */
+        .icon {
+            font-size: 1.2em;
+            margin-right: 0.4em;
+        }
+        body {
+            font-family: 'Inter', sans-serif; /* Using Inter font as specified */
+        }
+        /* Table borders, ensuring they are present if Tailwind's default is too subtle */
+        .table-bordered th, .table-bordered td {
+            border: 1px solid #e2e8f0; /* Light gray border for tables */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 leading-relaxed antialiased">
+    <div class="container mx-auto p-6 lg:p-10 bg-white rounded-xl shadow-lg my-8">
+
+        <!-- Project Report Section -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-extrabold text-blue-800 mb-2">Rapport de projet - PIL1_2425_35</h1>
+            <h2 class="text-2xl font-semibold text-blue-700">Nom du groupe: PIL1_2425_35</h2>
+        </header>
+
+        <div class="mb-8 p-4 bg-blue-50 rounded-lg shadow-inner text-gray-700">
+            <p class="text-lg leading-relaxed">
+                L'équipe au départ était constituée de cinq membres et nous avions réparties les tâches d'une manière qui ne nous permettait
+                pas de bien avancer. Suite à la séance d'encadrement avec les enseignants et l'ajout d'un nouveau membre, nous
+                avons suivi les conseils de l'encadreur et regroupés notre ancien travail dans le dossier "Ancien".
+            </p>
+            <p class="text-lg leading-relaxed mt-4">
+                Dans le dossier "Nouvelle_organisation" nous avons divisé le groupe en deux:
+            </p>
+            <ul class="list-disc pl-8 mt-2">
+                <li>La première qui se charge du frontend</li>
+                <li>La deuxième s'occupe du backend et du lien entre le frontend et le backend.</li>
+            </ul>
+        </div>
+
+        <section class="mb-8">
+            <h3 class="text-2xl font-bold text-gray-700 mb-4 text-center">Enseignants</h3>
+            <ul class="list-disc list-inside text-lg text-gray-600 pl-4">
+                <li>M. Ratheil HOUNDJI</li>
+                <li>M. Armand ACCROMBESSI</li>
+                <li>Mme Maryse GAHOU</li>
+            </ul>
+        </section>
+
+        <section class="mb-10">
+            <h4 class="text-2xl font-bold text-gray-700 mb-4 text-center">TÂCHES RÉALISÉES PAR CHAQUE MEMBRE DU GROUPE</h4>
+            <p class="text-lg text-gray-700 mb-6 text-center">Chaque membre a joué un rôle important dans ce projet.</p>
+
+            <div class="overflow-x-auto rounded-lg shadow-md">
+                <table class="min-w-full bg-white border-collapse">
+                    <thead class="bg-blue-600 text-white">
+                        <tr>
+                            <th scope="col" class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wider">Nom et Prénom</th>
+                            <th scope="col" class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wider">Filière</th>
+                            <th scope="col" class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wider">Équipe</th>
+                            <th scope="col" class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wider">Tâches réalisées</th>
+                            <th scope="col" class="py-3 px-4 text-left text-sm font-semibold uppercase tracking-wider">Nom sur Github</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 text-sm font-medium text-gray-900">AFFOKPON Mahuton Kris</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">GL</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">Équipe Front-End</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">
+                                <ul class="list-disc pl-5">
+                                    <li>Développement de l'interface de la page d'inscription</li>
+                                    <li>Développement de l'interface de la page de connexion</li>
+                                    <li>Développement de l'interface de la page d'accueil de l'application</li>
+                                    <li>Développement de l'interface de la page d'offres et de demandes de covoiturage</li>
+                                    <li>Développement de l'interface de messagerie et profil</li>
+                                </ul>
+                            </td>
+                            <td class="py-3 px-4 text-sm text-gray-700">Krisaff7</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 text-sm font-medium text-gray-900">ALLADAGBIN Brivice</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">IA</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">Équipe Backend</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">
+                                <ul class="list-disc pl-5">
+                                    <li>Mise en place de routes conducteurs et trajets</li>
+                                    <li>Mise en place de la base de données de l'application</li>
+                                    <li>Développement de l'algorithme de matching</li>
+                                    <li>Création du dépôt Github pour l'hébergement du code source</li>
+                                    <li>Création du fichier de configugation et du fichier models.py</li>
+                                </ul>
+                            </td>
+                            <td class="py-3 px-4 text-sm text-gray-700">Brivice-07</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 text-sm font-medium text-gray-900">AMOUSSOUGBOTO Bénita</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">IM</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">Équipe Front-end</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">
+                                <ul class="list-disc pl-5">
+                                    <li>Développement de l'interface des pages de suggestions de profil et de consultation du profil utilisateur en HTML, CSS et JavaScript</li>
+                                    <li>Développement de l'interface de messagerie</li>
+                                </ul>
+                            </td>
+                            <td class="py-3 px-4 text-sm text-gray-700">benita-bot</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 text-sm font-medium text-gray-900">HOUNYE Charbel</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">SEIOT</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">Front-End</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">
+                                <ul class="list-disc pl-5">
+                                    <li>Mise en place de la messagerie instantanée</li>
+                                    <li>Base de données - Messagerie instantanée</li>
+                                    <li>Développement de l'interface de la page de messagerie instantanée en HTML, CSS et JavaScript</li>
+                                </ul>
+                            </td>
+                            <td class="py-3 px-4 text-sm text-gray-700">Samou0625</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 text-sm font-medium text-gray-900">EHAHOUN AGOSSOU Ariella</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">SI</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">Équipe Back-End</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">
+                                <ul class="list-disc pl-5">
+                                    <li>Création des routes de connexion, d'inscription, d'accueil</li>
+                                    <li>Mise en place de l'authentification avec JWT</li>
+                                    <li>Hashage des mots de passe avec werkzeug.security</li>
+                                    <li>Gestion des dépendances du projet via "requirement.txt"</li>
+                                    <li>Lien entre la page de connexion et sa route flask.</li>
+                                    <li>Lien entre la page d'inscription et sa route flask.</li>
+                                </ul>
+                            </td>
+                            <td class="py-3 px-4 text-sm text-gray-700">Hestia7</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-3 px-4 text-sm font-medium text-gray-900">AGUIDI Dotu Othniel</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">IA</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">Backend</td>
+                            <td class="py-3 px-4 text-sm text-gray-700">
+                                <ul class="list-disc pl-5">
+                                    <li>Redaction du readme.</li>
+                                    <li>Redaction du package.json et du fichier bat.</li>
+                                </ul>
+                            </td>
+                            <td class="py-3 px-4 text-sm text-gray-700">Othniel-ken</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Difficulties Encountered Section -->
+        <section class="mb-10 p-4 bg-red-50 rounded-lg shadow-inner text-red-800">
+            <h4 class="text-2xl font-bold text-red-700 mb-4 text-center"><i class="fas fa-exclamation-triangle icon"></i>Difficultés rencontrées</h4>
+            <ul class="list-disc pl-8 text-lg leading-relaxed">
+                <li>Difficulté à connecter les pages de trajet, du profil et de la messagerie au backend.</li>
+            </ul>
+        </section>
+
+        <hr class="my-10 border-t-2 border-gray-300">    
+
+        <!-- User Manual Section -->
+        <div class="container mx-auto p-6 lg:p-10 bg-white rounded-xl shadow-lg my-8">
+            <header class="text-center mb-10">
+                <h1 class="text-4xl font-extrabold text-green-800 mb-2">Manuel d'utilisation de l'application web RideMates</h1>
+                <div class="text-lg text-gray-600">
+                    <strong>Groupe :</strong> PIL1_2425_35<br>
+                    <strong>Date :</strong> Juin 2025
+                </div>
+            </header>
+
+            <section class="mb-8">
+                <h2 class="text-3xl font-semibold text-green-700 mb-4">Présentation</h2>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    RideMates est une application web développée par notre groupe pour permettre aux étudiants de l'IFRI de partager leurs trajets quotidiens entre leur domicile et le campus avec d'autres camarades.
+                </p>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-3xl font-semibold text-green-700 mb-4">Structure du projet</h2>
+                <ul class="list-disc pl-8 text-lg text-gray-700">
+                    <li>Gestion des comptes utilisateurs</li>
+                    <li>Profil utilisateur détaillé</li>
+                    <li>Publication et recherche de trajets</li>
+                    <li>Système de mise en relation automatique</li>
+                    <li>Messagerie instantanée entre utilisateurs</li>
+                </ul>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-3xl font-semibold text-green-700 mb-4">Se connecter à son compte</h2>
+                <ol class="list-decimal pl-8 text-lg text-gray-700">
+                    <li>Allez sur la page de connexion via le lien <strong class="text-blue-600">Se connecter</strong>.</li>
+                    <li>Entrez votre adresse e-mail ou numéro de téléphone.</li>
+                    <li>Entrez votre mot de passe.</li>
+                    <li>Cliquez sur <strong class="text-blue-600">Se connecter</strong>.</li>
+                    <li>Si vos identifiants sont corrects, vous serez redirigé vers la page d'accueil.</li>
+                    <li>Sinon, un message d’erreur apparaît.</li>
+                </ol>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-3xl font-semibold text-green-700 mb-4"><span class="icon"><i class="fas fa-pencil-alt"></i></span>S’inscrire pour la première fois</h2>
+                <ol class="list-decimal pl-8 text-lg text-gray-700">
+                    <li>Allez sur la page d’inscription via le lien <strong class="text-blue-600">S'inscrire</strong>.</li>
+                    <li>Remplissez les champs suivants :
+                        <ul class="list-disc pl-8 mt-2">
+                            <li>Nom complet (obligatoire)</li>
+                            <li>Adresse e-mail (doit être unique)</li>
+                            <li>Numéro de téléphone (doit être unique)</li>
+                            <li>Mot de passe</li>
+                            <li>Rôle : choisissez si vous êtes conducteur ou passager</li>
+                        </ul>
+                    </li>
+                    <li>Cliquez sur <strong class="text-blue-600">Créer mon compte</strong>.</li>
+                    <li>Une fois inscrit, vous pouvez vous connecter avec vos identifiants.</li>
+                </ol>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-3xl font-semibold text-green-700 mb-4"><span class="icon"><i class="fas fa-user-circle"></i></span>Compléter et modifier son profil</h2>
+                <ol class="list-decimal pl-8 text-lg text-gray-700">
+                    <li>Connectez-vous à votre compte.</li>
+                    <li>Allez sur la page <strong class="text-blue-600">Mon Profil</strong>.</li>
+                    <li>Vous y trouverez :
+                        <ul class="list-disc pl-8 mt-2">
+                            <li>Votre nom et prénom</li>
+                            <li>Votre rôle actuel</li>
+                            <li>Vos horaires habituels</li>
+                            <li>Votre point de départ</li>
+                            <li>(Si conducteur) Les informations de votre véhicule et le nombre de places disponibles</li>
+                        </ul>
+                    </li>
+                    <li>Cliquez sur <strong class="text-blue-600">Modifier mon profil</strong> pour éditer vos informations.</li>
+                    <li>Cliquez sur <strong class="text-blue-600">Enregistrer</strong> pour sauvegarder vos changements.</li>
+                </ol>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-3xl font-semibold text-green-700 mb-4"><span class="icon"><i class="fas fa-car"></i></span>Publier ou chercher un trajet</h2>
+                <h3 class="text-2xl font-medium text-green-600 mb-3">Pour un conducteur :</h3>
+                <ol class="list-decimal pl-8 text-lg text-gray-700">
+                    <li>Allez sur la page <strong class="text-blue-600">Publier un trajet</strong>.</li>
+                    <li>Indiquez :
+                        <ul class="list-disc pl-8 mt-2">
+                            <li>Point de départ</li>
+                            <li>Point d’arrivée</li>
+                            <li>Horaire de départ</li>
+                            <li>Nombre de places disponibles</li>
+                        </ul>
+                    </li>
+                    <li>Cliquez sur <strong class="text-blue-600">Publier</strong> pour que votre offre apparaisse dans la liste.</li>
+                </ol>
+                <h3 class="text-2xl font-medium text-green-600 mb-3 mt-6">Pour un passager :</h3>
+                <ol class="list-decimal pl-8 text-lg text-gray-700">
+                    <li>Allez sur la page <strong class="text-blue-600">Rechercher un trajet</strong>.</li>
+                    <li>Filtrez selon :
+                        <ul class="list-disc pl-8 mt-2">
+                            <li>Votre point de départ</li>
+                            <li>Heure souhaitée</li>
+                        </ul>
+                    </li>
+                    <li>L’algorithme vous propose des correspondances possibles.</li>
+                    <li>Sélectionnez un conducteur et envoyez-lui un message pour confirmer les détails.</li>
+                </ol>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-3xl font-semibold text-green-700 mb-4"><span class="icon"><i class="fas fa-comments"></i></span>Utiliser la messagerie instantanée</h2>
+                <ol class="list-decimal pl-8 text-lg text-gray-700">
+                    <li>Une fois connecté, cliquez sur <strong class="text-blue-600">Messages</strong> dans la navigation.</li>
+                    <li>Dans la liste des conversations, sélectionnez un contact pour voir l'historique des messages.</li>
+                    <li>Écrivez votre message dans le champ de saisie et appuyez sur <strong class="text-blue-600">Envoyer</strong>.</li>
+                    <li>Les nouveaux messages reçus sont visibles immédiatement.</li>
+                    <li>Une notification apparaît lorsqu’un nouveau message arrive (simulée ou en temps réel si implémentée).</li>
+                </ol>
+            </section>
+        </div>
+
+        <hr class="my-10 border-t-2 border-gray-300">
+
+        <!-- Setup Instructions Section -->
+        <div class="container mx-auto p-6 lg:p-10 bg-white rounded-xl shadow-lg my-8">
+            <header class="text-center mb-10">
+                <h1 class="text-4xl font-extrabold text-purple-800 mb-2">🚀 Instructions de Configuration - RideMates</h1>
+                <p class="text-lg text-gray-600">Ce guide vous aidera à configurer l'environnement de développement pour l'application RideMates.</p>
+            </header>
+
+            <section class="mb-8">
+                <h2 class="text-3xl font-semibold text-purple-700 mb-4"><span class="icon"><i class="fas fa-database"></i></span>1. Installer MySQL</h2>
+                <p class="text-lg text-gray-700">Téléchargez et installez MySQL depuis :
+                    <a href="https://dev.mysql.com/downloads/" target="_blank" class="text-blue-600 hover:underline">https://dev.mysql.com/downloads/</a>
+                </p>
+                <p class="text-lg text-gray-700 mt-2">Vérifiez que MySQL est bien installé en exécutant dans votre terminal :</p>
+                <pre class="bg-gray-200 p-4 rounded-lg overflow-x-auto text-sm text-gray-800 mt-2"><code>mysql -u root -p</code></pre>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-3xl font-semibold text-purple-700 mb-4"><span class="icon"><i class="fas fa-file-import"></i></span>2. Importer la base de données <code class="bg-gray-200 px-2 py-1 rounded">ifri_comotorage</code></h2>
+                <p class="text-lg text-gray-700">Placez-vous dans le dossier contenant le fichier <code class="bg-gray-200 px-2 py-1 rounded">Database.sql</code> (qui devrait être fourni avec le projet), puis exécutez la commande suivante :</p>
+                <pre class="bg-gray-200 p-4 rounded-lg overflow-x-auto text-sm text-gray-800 mt-2"><code>mysql -u root -p &lt; Database.sql</code></pre>
+                <p class="text-lg text-gray-700 mt-2">Cela créera automatiquement la base de données <code class="bg-gray-200 px-2 py-1 rounded">ifri_comotorage</code> avec toutes les tables et données initiales.</p>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-3xl font-semibold text-purple-700 mb-4"><span class="icon"><i class="fas fa-user-plus"></i></span>3. Créer un utilisateur MySQL dédié</h2>
+                <p class="text-lg text-gray-700">Connectez-vous à MySQL via votre terminal :</p>
+                <pre class="bg-gray-200 p-4 rounded-lg overflow-x-auto text-sm text-gray-800 mt-2"><code>mysql -u root -p</code></pre>
+                <p class="text-lg text-gray-700 mt-2">Ensuite, exécutez les commandes SQL suivantes pour créer un utilisateur et lui accorder les privilèges nécessaires :</p>
+                <pre class="bg-gray-200 p-4 rounded-lg overflow-x-auto text-sm text-gray-800 mt-2"><code>
+CREATE USER 'ridemate'@'localhost' IDENTIFIED BY 'ridemate123';
+GRANT ALL PRIVILEGES ON ifri_comotorage.* TO 'ridemate'@'localhost';
+FLUSH PRIVILEGES;
+                </code></pre>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-3xl font-semibold text-purple-700 mb-4"><span class="icon"><i class="fas fa-file-code"></i></span>4. Modifier le fichier <code class="bg-gray-200 px-2 py-1 rounded">config.py</code></h2>
+                <p class="text-lg text-gray-700">Dans le dossier de votre projet, naviguez vers <code class="bg-gray-200 px-2 py-1 rounded">Backend/config.py</code> et assurez-vous que la ligne de configuration de la base de données est la suivante :</p>
+                <pre class="bg-gray-200 p-4 rounded-lg overflow-x-auto text-sm text-gray-800 mt-2"><code>
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://ridemate:ridemate123@localhost/ifri_comotorage'
+                </code></pre>
+                <p class="text-lg text-gray-700 mt-2 text-orange-600">⚠️ <strong>Attention :</strong> Remplacez le nom d'utilisateur (<code class="bg-gray-200 px-2 py-1 rounded">ridemate</code>) et le mot de passe (<code class="bg-gray-200 px-2 py-1 rounded">ridemate123</code>) si vous avez choisi d'autres identifiants lors de l'étape précédente.</p>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-3xl font-semibold text-purple-700 mb-4"><span class="icon"><i class="fas fa-python"></i></span>5. Créer un environnement virtuel et installer les dépendances</h2>
+                <p class="text-lg text-gray-700">Ouvrez votre terminal et suivez ces étapes pour installer les dépendances du backend :</p>
+                <pre class="bg-gray-200 p-4 rounded-lg overflow-x-auto text-sm text-gray-800 mt-2"><code>
+cd Backend
+python -m venv venv
+source venv/bin/activate        # Sous Windows : venv\Scripts\activate
+pip install -r requirements.txt
+                </code></pre>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-3xl font-semibold text-purple-700 mb-4"><span class="icon"><i class="fas fa-play"></i></span>6. Lancer le backend Flask</h2>
+                <p class="text-lg text-gray-700">Après avoir installé les dépendances, lancez le serveur Flask :</p>
+                <pre class="bg-gray-200 p-4 rounded-lg overflow-x-auto text-sm text-gray-800 mt-2"><code>
+cd app
+flask run
+                </code></pre>
+                <p class="text-lg text-gray-700 mt-2">L'API sera disponible par défaut sur <code class="bg-gray-200 px-2 py-1 rounded">http://localhost:5000</code>.</p>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-3xl font-semibold text-purple-700 mb-4"><span class="icon"><i class="fas fa-globe"></i></span>7. Lancer le frontend Vue.js</h2>
+                <p class="text-lg text-gray-700">Dans un nouveau terminal, naviguez vers le dossier du frontend et lancez-le :</p>
+                <pre class="bg-gray-200 p-4 rounded-lg overflow-x-auto text-sm text-gray-800 mt-2"><code>
+cd Frontend/RideMates
+npm install
+npm run dev
+                </code></pre>
+                <p class="text-lg text-gray-700 mt-2">Le site sera disponible sur <code class="bg-gray-200 px-2 py-1 rounded">http://localhost:5173</code> (ou un autre port affiché dans la console).</p>
+            </section>
+
+            <hr class="my-8 border-t-2 border-gray-300">
+
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-green-700 mb-4">🎉 Résultat</h2>
+                <p class="text-lg text-gray-700">Vous pouvez maintenant tester l'application en accédant au frontend depuis votre navigateur. Assurez-vous que le backend tourne également pour que toutes les fonctionnalités soient opérationnelles.</p>
+            </div>
+
+            <footer class="text-center text-gray-500 text-sm mt-10">
+                &copy; 2025 Groupe PIL1_2425_35 - RideMates
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
