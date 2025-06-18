@@ -1,22 +1,24 @@
-from flask import Blueprint, request, redirect, flash
+from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash
 from models.user_model import Utilisateur
 from app import db
 
 register_bp = Blueprint('register', __name__)
 
-@register_bp.route('/register', methods=['POST'])
-def register():
-    nom = request.form.get('nom')
-    prenoms = request.form.get('prenoms')
-    email = request.form.get('email')
-    telephone = request.form.get('telephone')
-    mot_de_passe = request.form.get('mot_de_passe')
-    statut = request.form.get('statut')
+@register_bp.route('/api/register', methods=['POST'])
+def api_register():
+    data = request.get_json()
 
+    nom = data.get('nom')
+    prenoms = data.get('prenoms')
+    email = data.get('email')
+    telephone = data.get('telephone')
+    mot_de_passe = data.get('mot_de_passe')
+    statut = data.get('statut')
+
+    # Vérifie si email ou téléphone existe déjà
     if Utilisateur.query.filter((Utilisateur.email == email) | (Utilisateur.telephone == telephone)).first():
-        flash("Email ou téléphone déjà utilisé", "danger")
-        return redirect('/register')
+        return jsonify({'error': 'Email ou téléphone déjà utilisé'}), 400
 
     utilisateur = Utilisateur(
         nom=nom,
@@ -29,5 +31,4 @@ def register():
     db.session.add(utilisateur)
     db.session.commit()
 
-    flash("Inscription réussie", "success")
-    return redirect('/login')
+    return jsonify({'message': 'Inscription réussie'}), 201
