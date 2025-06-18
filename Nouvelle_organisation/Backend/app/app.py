@@ -1,18 +1,21 @@
 from flask import Flask
 from flask_cors import CORS 
 from .extensions import db 
+from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 from .routes.register_routes import register_bp
 from .routes.login_routes import login_bp
 from .routes.home_routes import home_bp
 
-db = SQLAlchemy()
+
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object('config.Config')
     CORS(app)
     db.init_app(app)
+
+    jwt = JWTManager(app)
 
     from .routes.conducteur import conducteur_bp
     from .routes.ride import ride_bp

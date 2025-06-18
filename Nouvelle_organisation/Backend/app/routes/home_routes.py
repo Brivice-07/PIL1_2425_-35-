@@ -9,6 +9,6 @@ def home():
     current_user = get_jwt_identity() 
 
     return jsonify({
-        'message': 'Bienvenue sur la page d’accueil',
+        'message': 'Bienvenue dans votre profil',
         'utilisateur': current_user
     }), 200

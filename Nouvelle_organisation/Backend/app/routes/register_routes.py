@@ -10,7 +10,7 @@ def api_register():
     data = request.get_json()
 
     nom = data.get('nom')
-    prenoms = data.get('prenoms')
+    prenom = data.get('prenoms')
     email = data.get('email')
     telephone = data.get('telephone')
     mot_de_passe = data.get('mot_de_passe')
@@ -22,7 +22,7 @@ def api_register():
 
     utilisateur = Utilisateur(
         nom=nom,
-        prenoms=prenoms,
+        prenoms=prenom,
         email=email,
         telephone=telephone,
         mot_de_passe=generate_password_hash(mot_de_passe),

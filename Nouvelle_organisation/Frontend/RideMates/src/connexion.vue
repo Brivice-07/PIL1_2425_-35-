@@ -53,37 +53,38 @@ export default {
   },
   methods: {
     async handleLogin() {
-      this.message = ""; // Réinitialise le message
-      this.isError = false; // Réinitialise le statut d'erreur
+  this.message = "";
+  this.isError = false;
 
-      try {
-        // --- DÉBUT DE LA SIMULATION DE CONNEXION ---
-        // En production, cette partie ferait un appel à une API (ex: Axios.post('/api/login', this.form))
-        // et vérifierait les identifiants sur le serveur.
-        
-        // Simule un petit délai pour montrer un comportement asynchrone
-        await new Promise(resolve => setTimeout(resolve, 500)); 
+  try {
+    const response = await fetch("http://localhost:5000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: this.form.emailOrTel,         // ou 'emailOrTel' selon ton champ
+        mot_de_passe: this.form.password,
+      }),
+    });
 
-        // Exemple de vérification (très basique pour la simulation)
-        if (this.form.emailOrTel === 'test@example.com' && this.form.password === 'password123') {
-          localStorage.setItem('isAuthenticated', 'true'); // Stocke l'état d'authentification
-          this.message = "Connexion réussie ! Redirection...";
-          // Redirection vers la page d'accueil
-          await this.$router.push('/accueil');
-        } else {
-          // Si les identifiants ne correspondent pas à notre simulation
-          this.isError = true;
-          this.message = "Email/téléphone ou mot de passe incorrect.";
-        }
+    const data = await response.json();
 
-        // --- FIN DE LA SIMULATION DE CONNEXION ---
-        
-      } catch (error) {
-        console.error("Échec de la connexion :", error);
-        this.isError = true;
-        this.message = "Une erreur inattendue est survenue lors de la connexion.";
-      }
+    if (response.ok) {
+      localStorage.setItem("token", data.token);
+      this.message = data.message;
+      await this.$router.push("/accueil");
+    } else {
+      this.isError = true;
+      this.message = data.error || "Erreur de connexion.";
     }
+  } catch (error) {
+    console.error("Erreur réseau :", error);
+    this.isError = true;
+    this.message = "Impossible de se connecter au serveur.";
+  }
+}
+
   }
 };
 </script>

@@ -69,17 +69,41 @@ export default {
     };
   },
   methods: {
-    handleSubmit() {
-      // Les données du formulaire d'inscription, incluant maintenant le rôle.
-      console.log("Données du formulaire d'inscription :", this.form);
-      // En production, ici vous enverriez ces données à votre backend pour créer l'utilisateur.
-      // Si l'inscription réussit, vous pourriez par exemple connecter l'utilisateur
-      // et le rediriger vers /accueil.
-      
-      // Pour la simulation :
-      localStorage.setItem('isAuthenticated', 'true'); // Simule une connexion après inscription
-      this.$router.push('/accueil'); // Redirige vers la page d'accueil après inscription simulée
-    }
+   // Nouveau handleSubmit avec appel au backend
+handleSubmit() {
+  const userData = {
+    nom: this.form.nom,
+    prenoms: this.form.prenom,
+    email: this.form.email,
+    telephone: this.form.telephone,
+    mot_de_passe: this.form.password,
+    statut: this.form.role,
+  };
+
+  fetch("http://127.0.0.1:5000/api/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Échec de l'inscription.");
+      }
+      return res.json();
+    })
+    .then((data) => {
+      console.log("Inscription réussie :", data);
+      localStorage.setItem("isAuthenticated", "true");
+      this.$router.push("/accueil");
+    })
+    .catch((err) => {
+      console.error("Erreur lors de l'inscription :", err);
+      alert("Erreur lors de l'inscription. Veuillez réessayer.");
+    });
+}
+
   }
 };
 </script>

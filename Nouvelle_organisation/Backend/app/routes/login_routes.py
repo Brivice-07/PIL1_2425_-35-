@@ -3,6 +3,7 @@ from werkzeug.security import check_password_hash
 from ..models.user_model import Utilisateur
 from flask_jwt_extended import create_access_token
 from datetime import timedelta
+from sqlalchemy import or_
 
 login_bp = Blueprint('login', __name__)
 
@@ -12,7 +13,9 @@ def api_login():
     email = data.get('email')
     mot_de_passe = data.get('mot_de_passe')
 
-    utilisateur = Utilisateur.query.filter_by(email=email).first()
+    utilisateur = Utilisateur.query.filter(
+    or_(Utilisateur.email == email, Utilisateur.telephone == email)
+).first()
 
     if utilisateur and check_password_hash(utilisateur.mot_de_passe, mot_de_passe):
         access_token = create_access_token(identity={
@@ -22,5 +25,6 @@ def api_login():
         }, expires_delta=timedelta(days=1))
         
         return jsonify({'token': access_token, 'message': 'Connexion réussie'}), 200
+        
     else:
         return jsonify({'error': 'Identifiants incorrects'}), 401
