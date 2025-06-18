@@ -1,0 +1,21 @@
+# --- Elements pour Mon backend proposé ---
+
+# Environnement virtuel Python
+Mon backend proposé/venv/
+
+# Fichiers de configuration sensibles ou locaux
+Mon backend proposé/.env
+Mon backend proposé/.flaskenv
+
+# Caches Python et fichiers compilés
+Mon backend proposé/__pycache__/
+# S'assurer que tous les .pyc sont ignorés dans le dossier backend
+Mon backend proposé/**/*.pyc
+
+# Fichiers de configuration VS Code (si non partagés)
+Mon backend proposé/.vscode/
+
+# Fichier de base de données local (si ce n'est pas le schéma à versionner)
+# Si ce fichier contient des données de développement ou est généré, il est préférable de l'ignorer.
+# Si c'est le schéma initial de votre BDD que vous souhaitez versionner, supprimez cette ligne.
+Mon backend proposé/ridemates_db.sql

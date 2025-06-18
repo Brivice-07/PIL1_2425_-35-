@@ -1,0 +1,37 @@
+# .gitignore à la racine du dépôt principal
+
+# Ignorer le dossier venv propre au backend
+/Backend/venv/
+
+# Ignorer les fichiers d'environnement locaux du backend
+/Backend/*.env
+/Backend/.flaskenv
+
+# Python specific (within Backend)
+/Backend/__pycache__/
+/Backend/*.pyc
+/Backend/*.pyo
+/Backend/*.pyd
+/Backend/.Python/
+/Backend/pip-log.txt
+/Backend/pip-delete-this-directory.txt
+/Backend/.tox/
+/Backend/.coverage
+/Backend/.pytest_cache/
+/Backend/build/
+/Backend/dist/
+/Backend/*.egg-info/
+/Backend/*.so
+
+# Database specific (within Backend)
+/Backend/*.db # Pour les fichiers SQLite locaux si utilisés
+
+# Flask-specific (within Backend)
+/Backend/instance/ # Dossier d'instance Flask (peut contenir des logs ou données sensibles)
+
+# IDE specific (optional, add if you use these IDEs for backend)
+/Backend/.vscode/ # VS Code specific files
+/Backend/.idea/   # PyCharm specific files
+
+# --- Autres règles de .gitignore pour le reste de votre projet ---
+# ... (Vos règles existantes pour le frontend ou d'autres parties du projet)
