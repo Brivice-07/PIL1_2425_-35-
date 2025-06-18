@@ -95,58 +95,96 @@
 </template>
 
 <script setup>
-  import { ref, watch } from 'vue'
-  import { useRouter } from 'vue-router'; // Importation de useRouter
+import { ref, watch, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
-  const router = useRouter(); // Initialisation de useRouter
+const router = useRouter()
 
-  const profile = ref({
-    firstName: '', // Prénom séparé
-    lastName: '',  // Nom séparé
-    email: '',
-    phone: '',
-    role: 'passager', // Rôle par défaut, pour commencer
-    vehicle: {
-      type: 'moto', // Type de véhicule par défaut
-      make: '',    // Marque sélectionnée
-      model: '',   // Modèle saisi manuellement
-      seats: 1     // Nombre de places par défaut
-    }
-  })
+const profile = ref({
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  role: 'passager',
+  vehicle: {
+    type: 'moto',
+    make: '',
+    model: '',
+    seats: 1
+  }
+})
 
-  // Listes des marques (les modèles seront saisis manuellement)
-  const motoBrands = [
-    'Honda', 'Yamaha', 'Kawasaki', 'Suzuki', 'BMW', 'Ducati', 'Triumph', 'Harley-Davidson', 'KTM', 'Aprilia', 'Autre'
-  ];
-  const carBrands = [
-    'Peugeot', 'Renault', 'Citroën', 'Volkswagen', 'BMW', 'Mercedes', 'Audi', 'Toyota', 'Ford', 'Tesla', 'Autre'
-  ];
+const motoBrands = [
+  'Honda', 'Yamaha', 'Kawasaki', 'Suzuki', 'BMW', 'Ducati', 'Triumph', 'Harley-Davidson', 'KTM', 'Aprilia', 'Autre'
+]
+const carBrands = [
+  'Peugeot', 'Renault', 'Citroën', 'Volkswagen', 'BMW', 'Mercedes', 'Audi', 'Toyota', 'Ford', 'Tesla', 'Autre'
+]
 
-  // Surveille les changements de type de véhicule et de marque pour réinitialiser la marque et le modèle
-  watch(() => profile.value.vehicle.type, () => {
-    profile.value.vehicle.make = '';  // Réinitialise la marque quand le type change
-    profile.value.vehicle.model = ''; // Réinitialise le modèle quand le type change
-  });
+watch(() => profile.value.vehicle.type, () => {
+  profile.value.vehicle.make = ''
+  profile.value.vehicle.model = ''
+})
 
-  watch(() => profile.value.vehicle.make, () => {
-    profile.value.vehicle.model = ''; // Réinitialise le modèle quand la marque change
-  });
+watch(() => profile.value.vehicle.make, () => {
+  profile.value.vehicle.model = ''
+})
 
-  // Méthode pour naviguer vers la page précédente (ou la page d'accueil si aucune historique)
-  function goBack() {
-    if (window.history.length > 1) {
-      router.go(-1);
-    } else {
-      router.push('/'); // Assurez-vous que '/' est la route de votre page Accueil.vue
-    }
+function goBack() {
+  if (window.history.length > 1) {
+    router.go(-1)
+  } else {
+    router.push('/')
+  }
+}
+
+function handleSubmit() {
+  console.log('Profil mis à jour:', profile.value)
+  alert('Profil mis à jour avec succès ! (Voir console)')
+}
+
+// Charger les données depuis l'API
+onMounted(async () => {
+  const token = localStorage.getItem("token")
+  if (!token) {
+    alert("Aucun token trouvé. Veuillez vous reconnecter.")
+    return
   }
 
-  function handleSubmit() {
-    console.log('Profil mis à jour:', profile.value)
-    // Ici, vous ajouteriez la logique pour sauvegarder les données, par exemple vers une API
-    alert('Profil mis à jour avec succès ! (Voir console)');
+  try {
+    const res = await fetch('http://localhost:5000/api/home', {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    const data = await res.json()
+    console.log("Données reçues :", data)
+
+    if (data.utilisateur) {
+      profile.value.firstName = data.utilisateur.firstName || ''
+      profile.value.lastName = data.utilisateur.lastName || ''
+      profile.value.email = data.utilisateur.email || ''
+      profile.value.phone = data.utilisateur.phone || ''
+      profile.value.role = data.utilisateur.role || 'passager'
+
+      // Ajoute ceci si tu veux aussi charger les infos véhicule si elles existent :
+      if (data.utilisateur.vehicle) {
+        profile.value.vehicle = {
+          type: data.utilisateur.vehicle.type || 'moto',
+          make: data.utilisateur.vehicle.make || '',
+          model: data.utilisateur.vehicle.model || '',
+          seats: data.utilisateur.vehicle.seats || 1
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Erreur lors du chargement du profil :", err)
   }
+})
 </script>
+
+
 
 <style scoped>
   /* Les variables globales sont maintenant définies dans App.vue.

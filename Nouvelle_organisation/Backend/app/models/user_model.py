@@ -16,3 +16,5 @@ class Utilisateur(db.Model):
 
     def _repr_(self):
         return f"<Utilisateur {self.prenoms} {self.nom} - {self.email}>"
+    
+    

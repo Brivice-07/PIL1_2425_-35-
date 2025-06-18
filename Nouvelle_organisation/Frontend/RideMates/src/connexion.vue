@@ -72,6 +72,7 @@ export default {
 
     if (response.ok) {
       localStorage.setItem("token", data.token);
+      localStorage.setItem("isAuthenticated", "true");
       this.message = data.message;
       await this.$router.push("/accueil");
     } else {
